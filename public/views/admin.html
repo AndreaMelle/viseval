@@ -1,0 +1,24 @@
+<section data-ng-controller="AdminController" data-ng-init="get()">
+	<h1>Participants</h1>
+
+<!--
+	<div ng-switch="showMe">
+    	<div ng-switch-when="true">Hello!</div>
+	</div>
+    -->
+
+    <button class="btn btn-default" ng-click="create()">New</button>
+    <button ng-hide="numSelected" class="btn btn-default" ng-click="" disabled="disabled">Delete</button>
+    <button ng-show="numSelected" class="btn btn-default" ng-click="remove()">Delete</button>
+    <button class="btn btn-default" ng-click="" disabled="disabled">Statistics</button>
+    
+    <table ng-table="tableParams" class="table ng-table-rowselected">
+    	<tr ng-repeat="p in data" ng-click="p.$selected = !p.$selected; changeSelection(p)" ng-class="{'active': p.$selected}">
+        
+	        <td data-title="'Token'" >{{p.invite_token}}</td>
+	        <td data-title="'Email'">{{p.email}}</td>
+	        <td data-title="'Completed'">{{p.completed ? 'yes' : 'no'}}</td>
+    	</tr>
+    </table>
+
+</section>

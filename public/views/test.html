@@ -1,0 +1,20 @@
+<section data-ng-controller="TestController"  data-ng-init="getNext()">
+	<h1>This is the test view</h1>
+
+	<section>
+		<p>The actual test</p>
+	</section>
+
+	<div ng-switch="lastQuestion">
+    	<div ng-switch-when="true">
+    		<button class="btn btn-default" ng-click="end()">End</button>
+    	</div>
+    	<div ng-switch-when="false">
+    		<button ng-hide="hasAnswer" class="btn btn-default" disabled="disabled" ng-click="">Submit</button>
+    		<button ng-show="hasAnswer" class="btn btn-default" ng-click="next()">Submit</button>
+    	</div>
+	</div>
+
+	
+	
+</section>

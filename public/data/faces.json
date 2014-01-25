@@ -1,0 +1,18 @@
+{
+	"test" : {
+		"recognition" : 1,
+		"identification" : 1,
+		"forEachFilter" : 1,
+		"doubleidentification" : true
+	},
+
+	"data" : {
+		"dataDir" : "faces",
+		"subjectDir" : "s",
+		"sampleFile" : "",
+		"ext" : ".png",
+		"filterStrength" : [0, 4, 8, 16],
+		"subjects" : 10,
+		"samples" : 1
+	}
+}
