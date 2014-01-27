@@ -7,7 +7,7 @@ var authorization = require('./middlewares/authorization');
 module.exports = function(app) {
 
 	// all questions or by participant /questions?participant=_id
-    app.get('/questions', questions.get);
+    app.get('/questions', authorization.requiresParticipant, questions.get);
     //app.get('/questions/:questionId', questions.find)
 
     // create question set for participant /questions?participant=_id
@@ -16,5 +16,7 @@ module.exports = function(app) {
     // delete question set for participant /question?participant=_id
     app.del('/questions', authorization.requiresLogin, questions.destroy);
 
-    //app.param('questionId', questions.question);
+    app.param('questionId', questions.question);
+
+    app.put('/questions/:questionId', authorization.requiresParticipant, authorization.restrictParticipantToSelf, questions.update);
 };

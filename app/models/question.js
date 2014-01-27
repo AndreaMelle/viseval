@@ -31,6 +31,7 @@ var QuestionSchema = new Schema({
     },
     participantAnswer : {
         type: Number,
+        'default' : null
     },
     filter : {
         type : Number

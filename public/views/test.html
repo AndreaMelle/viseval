@@ -1,20 +1,87 @@
-<section data-ng-controller="TestController"  data-ng-init="getNext()">
-	<h1>This is the test view</h1>
+<section data-ng-controller="QstCtrl"  data-ng-init="load()">
+<div ui-if="isLoaded">
 
-	<section>
-		<p>The actual test</p>
-	</section>
+<div ng-switch="alreadyAnswered">
+<div class="questionContainer container" ng-switch-when="true">
+	<div class="row"><div class="col-md-8 col-md-offset-2">
+		<div class="row" id="instructions"><div class="col-md-12">
+			<h1>Question {{page}}</h1>
+			<p>You already answered this question</p>
+		</div></div>
+	</div></div>
 
-	<div ng-switch="lastQuestion">
-    	<div ng-switch-when="true">
-    		<button class="btn btn-default" ng-click="end()">End</button>
+	<div class="row"><div class="col-md-8 col-md-offset-2">
+		<div class="row" id="button" ng-switch="lastQuestion">
+    	<div class="col-md-12" ng-switch-when="true">
+    		<button class="btn btn-primary" ng-click="end()">End</button>
     	</div>
-    	<div ng-switch-when="false">
-    		<button ng-hide="hasAnswer" class="btn btn-default" disabled="disabled" ng-click="">Submit</button>
-    		<button ng-show="hasAnswer" class="btn btn-default" ng-click="next()">Submit</button>
+    	<div class="col-md-12" ng-switch-when="false">
+    		<button class="btn btn-primary" ng-click="next()">Next</button>
     	</div>
-	</div>
+		</div>
+	</div></div>
+</div>
 
+<div class="questionContainer container" ng-switch-when="false" ng-switch="question.type">	
 	
-	
+	<!-- RECOGNITION -->
+	<div class="row" ng-switch-when="recognition"><div class="col-md-8 col-md-offset-2">
+		
+		<div class="row" id="instructions"><div class="col-md-12">
+			<h1>Question {{page}}</h1>
+			<p>Pick which image seems closer to the original among the three</p>
+		</div></div>
+
+		<div class="row" id="original"><div class="col-md-12">
+				<img ng-src="{{question.original.url ? '../data/faces/' + question.original.url : ''}}" alt="o" height="112" width="92">
+		</div></div>
+
+		<div class="row" id="queries">
+			<radio-images sel-el="sel.value" question-attr="question" sel-cb="onSelection()"/>
+		</div>
+
+	</div></div>
+
+	<!-- IDENTIFICATION -->
+	<div class="row" ng-switch-when="identification"><div class="col-md-8 col-md-offset-2">
+		
+		<div class="row" id="instructions"><div class="col-md-12">
+			<h1>Question {{page}}</h1>
+			<p>Are these two faces the same?</p>
+		</div></div>
+
+		<div class="row" id="original">
+			<div class="col-md-6">
+				<img ng-src="{{question.original.url ? '../data/faces/' + question.original.url : ''}}" alt="o" height="112" width="92">
+			</div>
+			<div class="col-md-6">
+				<img ng-src="{{question.queries[0].image.url ? '../data/faces/' + question.queries[0].image.url : ''}}" alt="o" height="112" width="92">
+			</div>
+		</div>
+
+		<div class="row" id="queries">
+			<radio-yesno sel-el="sel.value" sel-cb="onSelection()"/>
+		</div>
+
+	</div></div>
+
+	<!-- SUBMIT -->
+
+	<div class="row"><div class="col-md-8 col-md-offset-2">
+		
+		<div class="row" id="button" ng-switch="lastQuestion">
+    	<div class="col-md-12" ng-switch-when="true">
+    		<button class="btn btn-primary" ng-click="end()">End</button>
+    	</div>
+    	<div class="col-md-12" ng-switch-when="false">
+    		<button ng-hide="hasAnswer" class="btn btn-primary" disabled="disabled" ng-click="">Submit</button>
+    		<button ng-show="hasAnswer" class="btn btn-primary" ng-click="next()">Submit</button>
+    	</div>
+		</div>
+
+	</div></div>
+
+</div>
+</div>
+</div>
 </section>

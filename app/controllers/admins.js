@@ -17,7 +17,8 @@ exports.signout = function(req, res) {
 
 exports.admin = function(req, res) {
     res.render('admin_views/index', {
-        admin: req.user ? JSON.stringify(req.user) : 'null'
+        admin: JSON.stringify(req.user),
+        username : req.user.username
     });
 };
 

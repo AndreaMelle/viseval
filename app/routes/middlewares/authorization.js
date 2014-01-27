@@ -17,3 +17,21 @@ exports.requiresLogout = function(req, res, next) {
     }
     next();
 };
+
+exports.requiresParticipant = function(req, res, next) {
+	if(!req.session.participant) {
+		res.send('Forbidden.', 403);
+	} else {
+		next();
+	}
+};
+
+exports.restrictParticipantToSelf = function(req, res, next) {
+
+	if(!req.session.participant
+		|| String(req.session.participant._id) !== String(req.question.participant)) {
+		res.send('Unauthorized', 401);
+	} else {
+		next();
+	}
+};

@@ -1,17 +1,24 @@
-<section data-ng-controller="AdminController" data-ng-init="get()">
-	<h1>Participants</h1>
+<section data-ng-controller="AdminCtrl" data-ng-init="get()">
+<div class="adminContainer container">
+<div class="row"><div class="col-md-8 col-md-offset-2">
 
-<!--
-	<div ng-switch="showMe">
-    	<div ng-switch-when="true">Hello!</div>
-	</div>
-    -->
-
-    <button class="btn btn-default" ng-click="create()">New</button>
-    <button ng-hide="numSelected" class="btn btn-default" ng-click="" disabled="disabled">Delete</button>
-    <button ng-show="numSelected" class="btn btn-default" ng-click="remove()">Delete</button>
-    <button class="btn btn-default" ng-click="" disabled="disabled">Statistics</button>
+    <div id="contentTitle" class="row"><div class="col-md-12">
+        <h1>Participants</h1>
+    </div></div>
     
+
+    <div id="adminButtons" class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <button class="btn btn-primary" ng-click="create()">New</button>
+
+            <button ng-hide="numSelected" class="btn btn-danger" ng-click="" disabled="disabled">Delete</button>
+            <button ng-show="numSelected" class="btn btn-danger" ng-click="remove()">Delete</button>
+
+            <button class="btn btn-primary" ng-click="" disabled="disabled">Statistics</button>
+        </div>
+    </div>
+    
+    <div id="contentTable" class="row"><div class="col-md-12">
     <table ng-table="tableParams" class="table ng-table-rowselected">
     	<tr ng-repeat="p in data" ng-click="p.$selected = !p.$selected; changeSelection(p)" ng-class="{'active': p.$selected}">
         
@@ -20,5 +27,8 @@
 	        <td data-title="'Completed'">{{p.completed ? 'yes' : 'no'}}</td>
     	</tr>
     </table>
+    </div></div>
 
+</div></div>
+</div>
 </section>

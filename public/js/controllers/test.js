@@ -1,21 +1,35 @@
 'use strict';
 
-angular.module('testApp.system').controller('TestController', ['$scope', 'Global', '$location', 'Questions', function ($scope, Global, $location, Questions) {
+angular.module('testApp.system').controller('QstCtrl', ['$scope', '$routeParams', 'Global', '$location', 'Questions', function ($scope, $routeParams, Global, $location, Questions) {
+
     $scope.global = Global;
 
+    $scope.isLoaded = false;
+    $scope.alreadyAnswered = false;
     $scope.lastQuestion = false;
     $scope.hasAnswer = false;
-    $scope.page = 0;
+    $scope.page = parseInt($routeParams.qst) - 1;
     $scope.question = null;
+    $scope.sel = {
+        value : null
+    }
 
-    $scope.getNext = function () {
+    $scope.load = function () {
+
+        $scope.isLoaded = false;
+        $scope.alreadyAnswered = false;
+        $scope.hasAnswer = false;
+        $scope.question = null;
+        $scope.sel = {
+            value : null
+        }
 
         Questions.get({
             participant : Global.participant._id,
             page : $scope.page
         }, function(data) {
 
-            $scope.question = data.question;
+            $scope.question = new Questions(data.question);
 
             if(data.lastPage) {
                 $scope.lastQuestion = true;
@@ -23,24 +37,45 @@ angular.module('testApp.system').controller('TestController', ['$scope', 'Global
                 $scope.page = data.page + 1;
             }
 
-            // @ TODO: render question
-
-            if ($scope.question.type === 'recognition') {
-
-                console.info('../data/faces/' + $scope.question.original.url);
-
-            } else if (($scope.question.type === 'identification')) {
-
-                console.info('../data/faces/' + $scope.question.original.url);
-
+            if($scope.question.participantAnswer) {
+                $scope.alreadyAnswered = true;
             }
+
+            $scope.isLoaded = true;
 
         });
     };
 
+    $scope.onSelection = function() {
+        if($scope.sel.value) {
+            //console.log($scope.sel.value);
+            $scope.hasAnswer = true;
+        } else {
+            $scope.hasAnswer = false;
+        }
+    }
+
     $scope.end = function () {
     	console.info('Test started');
     	$location.path('/end');
+    };
+
+    $scope.update = function(cb) {
+        if ($scope.sel.value && $scope.hasAnswer) {
+            $scope.question.participantAnswer = $scope.sel.value
+            console.log($scope.question.participantAnswer);
+            $scope.question.$update(cb);
+        }
+    };
+
+    $scope.next = function () {
+        if($scope.alreadyAnswered) {
+            $location.path('test/' + ($scope.page + 1));
+        } else {
+            $scope.update(function() {
+                $location.path('test/' + ($scope.page + 1));
+            });
+        }
     };
 
 

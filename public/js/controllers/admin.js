@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('adminApp.system').controller('AdminController', ['$scope', 'Global', 'Participants', 'Questions', 'ngTableParams', function ($scope, Global, Participants, Questions, ngTableParams) {
+angular.module('adminApp.system').controller('AdminCtrl', ['$scope', 'Global', 'Participants', 'Questions', 'ngTableParams', function ($scope, Global, Participants, Questions, ngTableParams) {
     
     $scope.global = Global;
     $scope.data = [];

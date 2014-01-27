@@ -1,5 +1,14 @@
 extends layouts/default
 
+block welcome
+	section
+		p
+			span Hello&nbsp;
+			span= username
+			span &nbsp;!&nbsp;
+			small
+				a(href="/admin/signout") logout
+
 block content
 	section(data-ng-view)
 	script(type="text/javascript").

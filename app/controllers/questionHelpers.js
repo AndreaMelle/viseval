@@ -20,7 +20,7 @@ function shuffleQueries(question) {
         question.queries[i] = queriesClone[shuffled[i]];    
     }
 
-    return question;
+    return [question, shuffled[0]];
 }
 
 function getRecQ (filter, cb) {
@@ -65,7 +65,11 @@ function getRecQ (filter, cb) {
                     image : results[i]
                 });
             }
-            return cb(null, shuffleQueries(question));
+
+            var res = shuffleQueries(question);
+            var q = res[0];
+            q.rightAnswer = res[1] + 1;
+            return cb(null, q);
         }
     });
 }
@@ -77,7 +81,14 @@ function getIdeQ (filter, cb) {
     question.type = 'identification';
     var subjects = random.getNRandomInt(1,facesSpecs.data.subjects,2);
 
-     async.parallel([
+    var rightAnswer = 1; //no
+
+    if (Math.random > 0.5) {
+        subjects[1] = subjects[0];
+        rightAnswer = 2; //yes
+    }
+
+    async.parallel([
 
         function(cb) {
             Image.load(subjects[0], 0, function(err, image) {
@@ -86,15 +97,9 @@ function getIdeQ (filter, cb) {
         },
 
         function(cb) {
-            if (Math.random > 0.5) {
-                Image.load(subjects[0], filter, function(err, image) {
-                    cb(err, image._id);
-                });
-            } else {
-                Image.load(subjects[1], filter, function(err, image) {
-                    cb(err, image._id);
-                });
-            }
+            Image.load(subjects[1], filter, function(err, image) {
+                cb(err, image._id);
+            });
         }
 
     ], function(err, results) {
@@ -105,6 +110,7 @@ function getIdeQ (filter, cb) {
             question.queries.push({
                 image : results[1]
             });
+            question.rightAnswer = rightAnswer;
             return cb(null, question);
         }
     });

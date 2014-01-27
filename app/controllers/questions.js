@@ -6,7 +6,7 @@ var Question = mongoose.model('Question');
 var helper = require('./questionHelpers');
 var maxQuestionsPerPage = 1;
 
-/*
+
 exports.question = function(req, res, next, id) {
     Question.load(id, function(err, question) {
         if (err) return next(err);
@@ -15,7 +15,31 @@ exports.question = function(req, res, next, id) {
         next();
     });
 };
-*/
+
+exports.update = function(req, res) {
+
+    if (req.question.participantAnswer) {
+        return res.send('error', 500);
+    }
+
+    var asw = req.body.participantAnswer;
+
+    if (asw === 'yes') {
+        req.question.participantAnswer = 2;
+    } else if (asw === 'no') {
+        req.question.participantAnswer = 1;
+    } else {
+        req.question.participantAnswer = parseInt(asw);
+    }
+
+    req.question.save(function(err) {
+        if (err) {
+            return res.send('error', 500);
+        } else {
+            res.jsonp(req.question);
+        }
+    });
+};
 
 exports.get = function (req, res) {
 

@@ -1,0 +1,65 @@
+body {
+
+}
+
+.questionContainer {
+	text-align: center;
+}
+
+.imgFrame {
+	
+}
+
+#instructions {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#original {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#queries {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#button {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.yesno-base {
+	cursor: pointer;
+	background-color: #F5F5F5;
+}
+
+.yesno-over {
+	cursor: pointer;
+	background-color: #AAAAAA;
+}
+
+.yesno-sel {
+	cursor: pointer;
+	background-color: #000000;
+	color: #ffffff;
+}
+
+.radio-base {
+	cursor: pointer;
+	border: 0px solid red;
+	padding: 5px;
+}
+
+.radio-over {
+	cursor: pointer;
+    border: 5px solid #AAAAAA;
+    padding: 0px;
+}
+
+.radio-sel {
+	cursor: pointer;
+    border: 5px solid #000000;
+    padding: 0px;
+}

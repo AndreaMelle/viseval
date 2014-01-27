@@ -5,3 +5,20 @@ body {
 .ng-table-rowselected tr {
     cursor: pointer;
 }
+
+.adminContainer {
+	text-align: center;
+}
+
+#contentTitle {
+	margin-bottom: 2em;
+}
+
+#adminButtons {
+	margin-bottom: 1em;
+	margin-top: 1em;
+}
+
+#contentTable {
+	margin-top: 2em;
+}

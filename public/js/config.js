@@ -20,6 +20,9 @@ angular.module('testApp').config(['$routeProvider',
             templateUrl: '../views/intro.html'
         }).
         when('/test', {
+            redirectTo: '/test/1'
+        }).
+        when('/test/:qst', {
             templateUrl: '../views/test.html'
         }).
         when('/end', {
